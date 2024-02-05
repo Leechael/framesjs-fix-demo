@@ -1,5 +1,5 @@
 {
-  "name": "frames.js",
+  "name": "framesjs-fix",
   "version": "0.0.4",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -19,10 +19,25 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./core": {
-      "require": "./dist/core/index.js",
-      "import": "./dist/core/index.js",
-      "types": "./dist/core/index.d.ts"
+    "./dist/getFrame": {
+      "require": "./dist/getFrame.js",
+      "import": "./dist/getFrame.js",
+      "types": "./dist/getFrame.d.ts"
+    },
+    "./dist/getFrameFlattened": {
+      "require": "./dist/getFrameFlattened.js",
+      "import": "./dist/getFrameFlattened.js",
+      "types": "./dist/getFrameFlattened.d.ts"
+    },
+    "./dist/getFrameHtml": {
+      "require": "./dist/getFrameHtml.js",
+      "import": "./dist/getFrameHtml.js",
+      "types": "./dist/getFrameHtml.d.ts"
+    },
+    "./dist/validateFrameMessage": {
+      "require": "./dist/validateFrameMessage.js",
+      "import": "./dist/validateFrameMessage.js",
+      "types": "./dist/validateFrameMessage.d.ts"
     },
     "./next/client": {
       "require": "./dist/next/client.js",

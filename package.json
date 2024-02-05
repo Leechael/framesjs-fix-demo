@@ -1,5 +1,5 @@
 {
-  "name": "frames.js export fix",
+  "name": "frames.js-export-fix",
   "version": "0.0.1",
   "main": "dist/index.mjs",
   "types": "dist/index.d.mts",

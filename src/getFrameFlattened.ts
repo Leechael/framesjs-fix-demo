@@ -1,4 +1,5 @@
-import { Frame, getFrameFlattened } from "framesjs-fix"
+import { type Frame } from "frames.js"
+import { getFrameFlattened } from "framesjs-fix/dist/getFrameFlattened"
 
 export async function main() {
   const initialFrame: Frame = {

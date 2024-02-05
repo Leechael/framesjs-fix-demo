@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import React from "react";
 import { getByteLength, validateFrameMessage } from "..";
-import { ActionIndex, FrameActionPayload } from "../core/types";
+import { ActionIndex, FrameActionPayload } from "../types";
 import { FrameActionMessage } from "@farcaster/core";
 // Todo: this isn't respecting the use client directive
 import { FrameButtonRedirectUI, FrameButtonUI } from "./client";
