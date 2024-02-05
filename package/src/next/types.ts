@@ -1,0 +1,93 @@
+import { ActionIndex, FrameActionPayload } from "../core/types";
+
+/**
+ * A subset of HTTP request headers provided to the server request
+ */
+export type HeadersList = {
+  /** user-agent header */
+  userAgent: string | null;
+  acceptLanguage: string | null;
+  /** for example: /maps */
+  pathname: string | null;
+  /** for example: https://www.google.com/maps */
+  url: string | null;
+  /** for example: www.google.com */
+  host: string | null;
+  /** for example: https://www.google.com */
+  urlWithoutPathname: string | null;
+};
+
+/** A subset of JS objects that are serializable */
+type AnyJson = boolean | number | string | null | JsonArray | JsonMap;
+interface JsonMap {
+  [key: string]: AnyJson;
+}
+interface JsonArray extends Array<AnyJson> {}
+
+/**
+ * FrameState constraints
+ * - must be short - combined with the post_url has a max length of 256 bytes
+ * - it must be serializable (no circular references)
+ * - it should be considered untrusted - anyone could share or modify the url
+ */
+export type FrameState = AnyJson;
+
+/**
+ * A Map from buttonIndex to href url, used to represent the previous Frames redirection state, in order to handle redirect requests
+ */
+export type RedirectMap = Record<number, string>;
+
+/**
+ * A representation of the previous frame, used in order to enable state transitions and redirects.
+ */
+export type PreviousFrame<T extends FrameState = FrameState> = {
+  /** the body of the `POST` request of a button click, including what button the user pressed and the signature */
+  postBody: FrameActionPayload | null;
+  /** the previous Frame's state, before the user pressed the button */
+  prevState: T | null;
+  /** the previous Frame's redirects */
+  prevRedirects: RedirectMap | null;
+  /** the previous Frame's pathname */
+  pathname?: string;
+  /** some of the headers present on the `POST` request received of the user action */
+  headers: HeadersList;
+};
+
+/**
+ * Similar to React useReducer's first argument. A state machine that takes a state the previous Frame's action data and returns a new state
+ */
+export type FrameReducer<T extends FrameState = FrameState> = (
+  state: T,
+  action: PreviousFrame
+) => T;
+
+/**
+ * These props are automatically added to children of <FrameContainer> in order to correctly assign `buttonIndex` to `<FrameButton>`s
+ */
+export type FrameButtonAutomatedProps = {
+  /** The buttonIndex of the button, which will be passed in the POST requests if the user presses on it */
+  actionIndex: ActionIndex;
+};
+
+/**
+ * Does nothing at the moment, but may be used in the future. It also makes the syntax more logical, as it seems like `Button` `onClick` actually dispatches a state transition, although in reality it works differently.
+ */
+export type Dispatch = (actionIndex: ActionIndex) => any;
+
+export type FrameButtonProvidedProps =
+  | FrameButtonPostRedirectProvidedProps
+  | FrameButtonPostProvidedProps;
+
+export type FrameButtonPostProvidedProps = {
+  /** a label to display on the button */
+  children: string | number;
+  /** does nothing at the moment */
+  onClick: Dispatch;
+};
+
+export type FrameButtonPostRedirectProvidedProps = {
+  /** an absolute url to redirect users to */
+  href: string;
+  /** a label to display on the button */
+  children: string | number;
+};

@@ -1,0 +1,16 @@
+{
+  "name": "frames.js export fix",
+  "version": "0.0.1",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup --config tsup.config.ts"
+  },
+  "devDependencies": {
+    "frames.js": "^0.0.4",
+    "framesjs-fix": "file:./package",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}
